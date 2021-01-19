@@ -1,0 +1,195 @@
+\chapter{JavaScript}
+\section{Introduction}
+JavaScript is Interpreted!
+\begin{itemize}
+	\item Each browser has its own JavaScript engine, which either interprets the code,
+	      or uses some sort of lazy compilation.
+	      \begin{itemize}
+		      \item V8: Chrome and Node.js
+		      \item SpiderMonkey: Firefox
+		      \item JavaScriptCore: Safari
+		      \item Chakra: Microsoft Edge/IE
+	      \end{itemize}
+	\item They each implement the ECMAScript standard, but may differ for anything not
+	      defined by the standard.
+\end{itemize}
+
+\section{Syntax}
+Semicolons are optional!
+\begin{code}
+	\inputminted{js}{src0/0-syntax.js}
+	\caption{JavaScript Syntax}
+\end{code}
+
+\section{Types}
+\begin{itemize}
+	\item Dynamic Typing
+	\item Primitive Types (no methods, immutable)
+	      \begin{itemize}
+		      \item undefined
+		      \item null
+		      \item boolean
+		      \item number
+		      \item string
+		      \item (symbol) (New, in ES6)
+	      \end{itemize}
+	\item Objects
+	\item Typecasting? Coercion.
+	\item Explicit vs. Implicit Coercion
+	      \begin{itemize}
+		      \item \mintinline{js}{const x = 42;}
+		      \item \mintinline{js}{const explicit = String(x); // explicit === '42'}
+		      \item \mintinline{js}{const implicit = x + ''; // implicit === '42'}
+	      \end{itemize}
+	\item == vs. ===
+	      \begin{itemize}
+		      \item == coerces the types
+		      \item === requires equivalent types
+	      \end{itemize}
+	\item Falsy values? return false when cast to boolean
+	      \begin{itemize}
+		      \item undefined
+		      \item null
+		      \item false
+		      \item +0, -0, NaN
+		      \item ""
+	      \end{itemize}
+	\item Truthy?
+	      \begin{itemize}
+		      \item \text{[]}
+		      \item \{\}
+		      \item literally everything except falsy values
+	      \end{itemize}
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src0/1-types.js}
+	\caption{JavaScript Types}
+\end{code}
+
+% \clearpage
+\section{Objects}
+\begin{itemize}
+	\item Everything (except primitive types) are objects
+	\item Prototypal Inheritance
+\end{itemize}
+
+\subsection{Primitives vs. Objects}
+\begin{itemize}
+	\item Primitives are immutable
+	\item Objects are mutable and stored by reference
+	\item Passing by reference vs. passing by value
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src0/2-objects.js}
+	\caption{JavaScript Objects}
+\end{code}
+
+\clearpage
+\begin{code}
+	\inputminted{js}{src0/3-objectMutation.js}
+	\caption{Object Mutation}
+\end{code}
+
+\section{Prototypal Inheritance}
+\begin{itemize}
+	\item Non-primitive types have a few properties/methods associated with them.
+	      \begin{itemize}
+		      \item Array.prototype.push()
+		      \item String.prototype.toUpperCase()
+	      \end{itemize}
+	\item Each object stores a reference to its prototype
+	\item Properties/methods defined most tightly to the instance have priority
+	\item Most primitive types have object wrappers
+	      \begin{itemize}
+		      \item String()
+		      \item Number()
+		      \item Boolean()
+		      \item Object()
+		      \item (Symbol())
+	      \end{itemize}
+	\item JS will automatically "box" (wrap) primitive values so you have access
+	      to methods
+	      \begin{minted}{js}
+				42.toString()		// Errors
+				const x = 42;
+				x.toString()		// "42"
+				x.__proto__			// [Number: 0]
+				x instanceof Number	// false
+			  \end{minted}
+	\item Why use reference to a prototype?
+	\item What's the alternative?
+	\item What's the danger?
+\end{itemize}
+
+\section{Scope}
+\begin{itemize}
+	\item Variable Lifetime
+	      \begin{itemize}
+		      \item Lexical scoping (var): from when they're declared until when
+		            their function ends
+		      \item Block scoping (const, let): until the next \} is reached
+	      \end{itemize}
+	      \begin{code}
+		      \inputminted{js}{src0/4-scopeVariables.js}
+		      \caption{Variable Scopes}
+	      \end{code}
+	\item Hoisting (hoisting the definitions to the top)
+	      \begin{itemize}
+		      \item Function definitions are hoisted, but not lexically-scoped
+		            initializations
+	      \end{itemize}
+	      \begin{code}
+		      \inputminted{js}{src0/5-scopeFunctions.js}
+		      \caption{Function Scopes}
+	      \end{code}
+	\item Why? How? JavaScript Engine!
+\end{itemize}
+
+\section{JavaScript Engine}
+\begin{itemize}
+	\item Before executing the code, the engine reads the entire file and
+	      will throw a syntax error if one is found.
+	      \begin{itemize}
+		      \item Any function definitions will be saved in memory
+		      \item Variable initializations will not be run, but lexically
+		            scoped variable names will be declared
+	      \end{itemize}
+	\item Execution Phase
+\end{itemize}
+
+\section{The Global Object}
+\begin{itemize}
+	\item All variables and functions are actually parameters and methods
+	      on the global object
+	      \begin{itemize}
+		      \item Browser global object is the `window' object
+		      \item Node.js global object is the `global' object
+	      \end{itemize}
+\end{itemize}
+
+\section{Closures}
+\begin{itemize}
+	\item Functions that refer to variables declared by parent function
+	\item Possible because of scoping
+\end{itemize}
+
+\begin{code}
+	\begin{minted}{js}
+		function makeFunctionArray() {
+			const arr = []
+
+			for (var i = 0; i < 5; i++) {
+				arr.push(function() { console.log(i) })
+			}
+
+			return arr
+		}
+
+		const arr = makeFunctionArray()
+
+		arr[0]()
+	\end{minted}
+	\caption{JavaScript Closure}
+\end{code}
