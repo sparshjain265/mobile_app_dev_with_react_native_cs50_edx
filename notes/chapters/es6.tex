@@ -1,0 +1,197 @@
+\chapter{JavaScript and ES6}
+\section{ES5, ES6, ES2016, Es2017, ES.Next, \dots}
+\begin{itemize}
+	\item ECMAScript (Specs) vs. JavaScript (Implementation)
+	\item What do most environments support?
+	      \begin{itemize}
+		      \item Assume env supports all of ES5
+		      \item Transpilers (Babel, TypeScript, CoffeeScript, etc.) to use newer
+		            features and make it backwards compatible to ES5
+	      \end{itemize}
+	\item Which syntax should we use? Generally use the future syntax (either env will
+	      catch up, or transpile backwards)
+\end{itemize}
+
+\section{Closures}
+\begin{itemize}
+	\item Functions that refer to variables declared by parent function still have
+	      access to those variables
+	\item Possible because of JavaScript's scoping
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/0-closureBug.js}
+	\caption{Bug? due to closures}
+\end{code}
+
+\begin{code}
+	\inputminted{js}{src1/1-closureExample.js}
+	\caption{Closure Example}
+\end{code}
+
+\section{Immediately Invoked Function Expression}
+\begin{itemize}
+	\item A function expression that gets invoked immediately
+	\item Creates closure
+	\item Doesn’t add to or modify global object
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/2-iife.js}
+	\caption{Immediately Invoked Function Expression (IIFE)}
+\end{code}
+
+\begin{code}
+	\inputminted{js}{src1/3-iifeClosure.js}
+	\caption{IIFE and Closure}
+\end{code}
+
+\section{First Class Functions}
+\begin{itemize}
+	\item Functions are treated in the same way as any other value
+	      \begin{itemize}
+		      \item Can be assigned to variables, array values, and object values
+		      \item Can be passed as arguments to other functions
+		      \item Can be returned from functions
+	      \end{itemize}
+	\item Allows for creation of higher order functions
+	      \begin{itemize}
+		      \item Either take one or more functions as arguments or returns a function
+		      \item map(), filter(), reduce()
+	      \end{itemize}
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/4-hof.js}
+	\caption{Higher Order Function}
+\end{code}
+
+\clearpage
+\section{Synchronous? Async? Single-Threaded?}
+\begin{itemize}
+	\item JavaScript is a single-threaded, synchronous language
+	\item A function that takes a long time to run will cause the page to become
+	      unresponsive
+	      \begin{code}
+		      \inputminted{js}{src1/5-hang.js}
+		      \caption{Synchronous JS}
+	      \end{code}
+	\item JavaScript has functions that act asynchronously
+	      \begin{code}
+		      \inputminted{js}{src1/8-async.js}
+		      \caption{Async Functions}
+	      \end{code}
+	\item How can it be both? Synchronous and Asynchronous?
+\end{itemize}
+
+\section{Asynchronous JavaScript}
+\begin{itemize}
+	\item Execution Stack
+	\item Browser APIs
+	\item Function queue
+	\item Event loop
+\end{itemize}
+
+\subsection{Execution Stack}
+\begin{itemize}
+	\item Functions invoked by other functions get added to the call stack
+	\item When functions complete, they are removed from the call stack and
+	      the frame below continues executing
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/6-stack.js}
+	\caption{Execution Stack}
+\end{code}
+
+\subsection{Asynchronous Functions}
+\begin{itemize}
+	\item setTimeout()
+	\item XMLHttpRequest(), jQuery.ajax(), fetch()
+	\item Database calls
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/7-overflow.js}
+	\caption{Overflow}
+\end{code}
+
+\subsection{Callbacks}
+\begin{itemize}
+	\item Control flow with asynchronous calls
+	\item Execute function once asynchronous call returns value
+	      \begin{itemize}
+		      \item Program doesn't have to halt and wait for the value
+	      \end{itemize}
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/9-callbacks.js}
+	\caption{Callbacks}
+\end{code}
+
+\subsubsection{Callback Hell}
+A big christmas tree of callbacks
+\begin{code}
+	\inputminted{js}{src1/a-callbackAuth.js}
+	\caption{Callback Hell}
+\end{code}
+
+\subsection{Promises}
+\begin{itemize}
+	\item Alleviate "callback hell"
+	\item Allows you to write code that assumes a value is returned within a
+	      success function
+	\item Only needs a single error handler
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/b-promises.js}
+	\caption{Promises}
+\end{code}
+
+\subsubsection{Escape Callback Hell with Promises}
+\begin{code}
+	\inputminted{js}{src1/c-promiseAuth.js}
+	\caption{Escape Callback Hell with Promises}
+\end{code}
+
+\subsection{Async/Await}
+\begin{itemize}
+	\item Introduced in ES2017
+	\item Allows people to write async code as if it were synchronous
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/d-asyncAwaitAuth.js}
+	\caption{Async/Await solution to callbacks}
+\end{code}
+
+\section{this}
+\begin{itemize}
+	\item Refers to an object that’s set at the creation of a new execution
+	      context (function invocation)
+	\item In the global execution context, refers to global object
+	\item If the function is called as a method of an object, 'this' is
+	      bound to the object the method is called on
+\end{itemize}
+
+\subsubsection{Setting 'this' manually}
+\begin{itemize}
+	\item bind(), call(), apply()
+	\item ES6 arrow notation
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src1/e-this.js}
+	\caption{this in JavaScript}
+\end{code}
+
+\section{Browsers and DOM}
+\begin{itemize}
+	\item Browsers render HTML to a webpage
+	\item HTML defines a tree-like structure
+	\item Browsers construct this tree in memory before painting the page
+	\item Tree is called the Document Object Model
+	\item The DOM can be modified using JavaScript
+\end{itemize}
