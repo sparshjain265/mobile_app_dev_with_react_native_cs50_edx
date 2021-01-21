@@ -1,0 +1,181 @@
+\chapter{React, Props, State}
+\section{Classes}
+\begin{itemize}
+	\item Syntax introduced in ES6
+	\item Simplifies the defining of complex objects with their own prototypes
+	\item Classes vs instances
+	\item Methods vs static methods vs properties
+	\item new, constructor, extends, super
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src2/1-Set.js}
+	\caption{Class Example (Set) in JavaScript}
+\end{code}
+
+\begin{code}
+	\inputminted{js}{src2/2-Set.js}
+	\caption{Extending JS Set Class}
+\end{code}
+
+\clearpage
+\begin{code}
+	\inputminted{js}{src2/3-Todo.js}
+	\caption{Using Class for Todo App}
+\end{code}
+
+\section{React}
+\begin{itemize}
+	\item Allows us to write delcarative views that "react" to changes in data
+	\item Allows us to abstract complex problems into smaller components
+	\item Allows us to write simple code that is still performant
+\end{itemize}
+
+\subsection{Imperative vs Declarative}
+\begin{itemize}
+	\item How vs What
+	\item Imperative programming outlines a series of steps to get to what you want
+	\item Declarative programming just declares what you want
+\end{itemize}
+
+\clearpage
+\begin{code}
+	\inputminted{js}{src2/4-imperativeGuitar.js}
+	\caption{Building Guitar - The Imperative Way}
+\end{code}
+
+\clearpage
+\begin{code}
+	\inputminted{js}{src2/5-declarativeGuitar.js}
+	\caption{Building Guitar - The Declarative Way}
+\end{code}
+
+\subsection{React is Declarative}
+\begin{itemize}
+	\item Imperative vs Declarative
+	\item The browser APIs aren't fun to work with
+	\item React allows us to write what we want, and the library will
+	      take care of the DOM manipulation
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src2/6-imperativeSlide.js}
+	\caption{Imperative Slide}
+\end{code}
+
+\begin{code}
+	\inputminted{js}{src2/7-declarativeSlide.js}
+	\caption{Declarative Slide}
+\end{code}
+
+\subsection{React is Easily Componentized}
+\begin{itemize}
+	\item Breaking a complex problems into discrete components
+	\item Can reuse these components
+	      \begin{itemize}
+		      \item Consistency
+		      \item Iteration speed
+	      \end{itemize}
+	\item React's declarative nature makes it easy to customize components
+\end{itemize}
+
+\begin{code}
+	\inputminted{html}{src2/8-slideshow.html}
+	\caption{HTML Slideshow}
+\end{code}
+
+\begin{code}
+	\inputminted{js}{src2/9-slideshowComponents.js}
+	\caption{React Slideshow}
+\end{code}
+
+\subsection{React is Performant}
+\begin{itemize}
+	\item We write what we want and React will do the hard work
+	\item Reconciliation - the process by which React syncs changes in
+	      app state to DOM
+	      \begin{itemize}
+		      \item Reconstructs the virtual DOM
+		      \item Diffs the virtual DOM against the DOM
+		      \item Only makes the changes needed*
+	      \end{itemize}
+\end{itemize}
+
+\section{Writing React}
+\begin{itemize}
+	\item JSX
+	      \begin{itemize}
+		      \item XML-like syntax extension of JavaScript
+		      \item Transpiles to JavaScript
+		      \item Lowercase tags are treated as HTML/SVG tags, uppercase are
+		            treated as custom components
+	      \end{itemize}
+	      \clearpage
+	\item Components are just functions
+	      \begin{itemize}
+		      \item Returns a node (something React can render, e.g. a <div />)
+		      \item Receives an object of the properties that are passed to the
+		            element
+	      \end{itemize}
+\end{itemize}
+\paragraph{Note:} Can run/try react on \href{https://codesandbox.io}{codesandbox.io} .
+
+\section{Props}
+\begin{itemize}
+	\item Passed as an object to a component and used to compute the returned node
+	\item Changes in these props will cause a recomputation of the returned node
+	      ("render")
+	\item Unlike in HTML, these can be any JS value (use \{to let react know\})
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src2/a-props.js}
+	\caption{Props in React}
+\end{code}
+
+\section{State}
+\begin{itemize}
+	\item Adds internally-managed configuration for a component
+	\item `this.state' is a class property on the component instance
+	\item Can only be updated by invoking `this.setState()'
+	      \begin{itemize}
+		      \item Implemented in React.Component
+		      \item setState() calls are batched and run asynchronously
+		      \item Pass an object to be merged, or a function of previous state
+	      \end{itemize}
+	\item Changes in state also cause re-renders
+\end{itemize}
+
+\begin{code}
+	\inputminted{js}{src2/b-state.js}
+	\caption{React States}
+\end{code}
+
+\clearpage
+\section{Todo App}
+\begin{enumerate}
+	\item Layout what you need
+	      \inputminted{js}{src2/todoApp0.js}
+	\item Componentize
+	      \inputminted{js}{src2/todoApp1.js}
+	\item Write Declaratively (Inner HTML)
+	      \inputminted{js}{src2/todoApp2.js}
+	\item Store todo list in a Data Structure
+	      \inputminted{js}{src2/todoApp3.js}
+	\item React it
+	      \begin{code}
+		      \inputminted{js}{src2/todoApp4-react.js}
+		      \caption{Todo App in React}
+	      \end{code}
+\end{enumerate}
+
+\section{React Native}
+Why limit React to just web? Bring it to mobile!
+\begin{itemize}
+	\item A framework that relies on React core
+	\item Allows us build mobile apps using only JavaScript
+	      \begin{itemize}
+		      \item Learn once, write anywhere
+	      \end{itemize}
+	\item Supports iOS and Android
+\end{itemize}
